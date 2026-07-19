@@ -13,9 +13,9 @@ Password Analyzer is a Java-based application that evaluates the strength of a p
 
 ## Technologies Used
 - Java
-- VS Code / IntelliJ IDEA
-- Java Collections (if used)
-- Regular Expressions (Regex) (if used)
+- VS Code
+- Java Collections
+- Regular Expressions (Regex)
 
 ## Project Structure
 ```
