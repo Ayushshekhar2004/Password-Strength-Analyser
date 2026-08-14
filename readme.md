@@ -87,4 +87,4 @@ Suggestions:
 - Password generation feature
 
 ## Author
-Arjun
+Ayush Shekhar Singh
