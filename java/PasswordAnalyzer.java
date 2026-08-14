@@ -1,32 +1,32 @@
 import java.util.*;
 
-public class passwordAnalyser {
-    public static boolean hasSequentialPatterns(String password) {
-        int accending = 1;
-        int decending = 1;
+public class PasswordAnalyzer {
+    public static boolean hasSequentialPattern(String password) {
+        int ascending = 1;
+        int descending = 1;
 
         for (int i = 1; i < password.length(); i++) {
             char curr = password.charAt(i);
             char prev = password.charAt(i - 1);
             if (curr - prev == 1) {
-                accending++;
-                decending = 1;
-            } else if (prev - curr == -1) {
-                accending = 1;
-                decending++;
+                ascending++;
+                descending = 1;
+            } else if (curr - prev  == -1) {
+                ascending = 1;
+                descending++;
             } else {
-                accending = 1;
-                decending = 1;
+                ascending = 1;
+                descending = 1;
             }
 
-            if (accending >= 4 || decending >= 4) {
+            if (ascending >= 4 || descending >= 4) {
                 return true;
             }
         }
         return false;
     }
 
-    public static boolean hasKeyboardPatterns(String password) {
+    public static boolean hasKeyboardPattern(String password) {
         String[] patterns = {
                 "qwerty",
                 "asdfgh",
@@ -36,10 +36,10 @@ public class passwordAnalyser {
                 "zxcv"
         };
 
-        String newPass = password.toLowerCase();
+        String lowercasePassword = password.toLowerCase();
 
         for (String pattern : patterns) {
-            if (newPass.contains(pattern)) {
+            if (lowercasePassword.contains(pattern)) {
                 return true;
             }
         }
@@ -47,7 +47,7 @@ public class passwordAnalyser {
         return false;
     }
 
-    public static boolean hasCommonPasswords(String password) {
+    public static boolean isCommonPassword(String password) {
         String[] commonPasswords = {
                 "password",
                 "123456",
@@ -65,10 +65,10 @@ public class passwordAnalyser {
                 "football"
         };
 
-        String newPass = password.toLowerCase();
+        String lowercasePassword = password.toLowerCase();
 
-        for(String cPass : commonPasswords) {
-            if(newPass.equals(cPass)) {
+        for(String commonPassword : commonPasswords) {
+            if(lowercasePassword.equals(commonPassword)) {
                 return true;
             }
         }
@@ -82,53 +82,53 @@ public class passwordAnalyser {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter the password : ");
-        String pass = sc.nextLine();
+        String password = sc.nextLine();
 
-        // Excessive Repetions
-        HashMap<Character, Integer> freq = new HashMap<>();
+        // Excessive Repetitions
+        HashMap<Character, Integer> charFrequency = new HashMap<>();
 
-        for (char ch : pass.toCharArray()) {
-            freq.put(ch, freq.getOrDefault(ch, 0) + 1);
+        for (char ch : password.toCharArray()) {
+            charFrequency.put(ch, charFrequency.getOrDefault(ch, 0) + 1);
         }
 
-        boolean excessiveRepetions = false;
-        for (int val : freq.values()) {
+        boolean excessiveRepetitions = false;
+        for (int val : charFrequency.values()) {
             if (val >= 3) {
-                excessiveRepetions = true;
-                System.out.println("Excessive Repetitions -> " + excessiveRepetions + "for value : " + val);
+                excessiveRepetitions = true;
+                System.out.println("Excessive Repetitions -> " + excessiveRepetitions + " for value : " + val);
                 break;
             }
         }
 
-        System.out.println(hasSequentialPatterns(pass));
-        System.out.println(hasKeyboardPatterns(pass));
-        System.out.println(hasCommonPasswords(pass));
+        System.out.println(hasSequentialPattern(password));
+        System.out.println(hasKeyboardPattern(password));
+        System.out.println(isCommonPassword(password));
 
         // Checking Conditions
 
-        boolean uppercase = false;
-        boolean lowercase = false;
-        boolean digit = false;
-        boolean specialChar = false;
-        boolean whitespace = false;
+        boolean hasUppercase = false;
+        boolean hasLowercase = false;
+        boolean hasDigit = false;
+        boolean hasSpecialCharacter = false;
+        boolean hasWhitespace = false;
 
-        for (int i = 0; i < pass.length(); i++) {
-            char ch = pass.charAt(i);
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
 
             if (Character.isUpperCase(ch)) {
-                uppercase = true;
+                hasUppercase = true;
             }
             if (Character.isLowerCase(ch)) {
-                lowercase = true;
+                hasLowercase = true;
             }
             if (Character.isDigit(ch)) {
-                digit = true;
+                hasDigit = true;
             }
             if (!Character.isLetterOrDigit(ch) && !Character.isWhitespace(ch)) {
-                specialChar = true;
+                hasSpecialCharacter = true;
             }
             if (Character.isWhitespace(ch)) {
-                whitespace = true;
+                hasWhitespace = true;
             }
         }
 
@@ -136,20 +136,20 @@ public class passwordAnalyser {
 
         int score = 0;
 
-        if (pass.length() >= 8)
+        if (password.length() >= 8)
             score++;
-        if (pass.length() >= 12)
+        if (password.length() >= 12)
             score++;
-        if (uppercase)
+        if (hasUppercase)
             score++;
-        if (lowercase)
+        if (hasLowercase)
             score++;
-        if (specialChar)
+        if (hasSpecialCharacter)
             score++;
-        if (digit)
+        if (hasDigit)
             score++;
 
-        System.out.print("Password Strenght : ");
+        System.out.print("Password Strength : ");
         if (score <= 2) {
             System.out.println("Weak");
         } else if (score <= 4) {
