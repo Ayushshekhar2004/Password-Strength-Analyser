@@ -1,5 +1,5 @@
 # Datasets -> Quite large for github
-data/
+ml/data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
