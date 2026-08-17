@@ -5,6 +5,7 @@ ml/data/
 __pycache__/
 *.py[codz]
 *$py.class
+*.class
 
 # C extensions
 *.so
